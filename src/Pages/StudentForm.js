@@ -82,6 +82,7 @@ class StudentForm extends Component {
             dob: event.target.value,
 
         })
+        
     }
 
     handleSubmit = async (event) => {
@@ -99,7 +100,7 @@ class StudentForm extends Component {
         console.log('ClassRoom:', selectedClass)
 
         if (this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.contactNumber.length === 0 ||
-            this.state.contactPerson.length === 0 || this.state.email.length === 0 || this.state.dob === 0 || this.state.age.length === 0) {
+            this.state.contactPerson.length === 0 || this.state.email.length === 0 || this.state.dob === 0 || this.state.age.length === 0 || selectedClass.length === 0) {
             alert("Please provide all Details!!")
         }else if(this.state.contactNumber.length > 10 || this.state.contactNumber.length < 10){
             alert("Please enter valid Phone Number!!")

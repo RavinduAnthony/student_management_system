@@ -9,6 +9,10 @@ import { AllocateSubject } from "./Pages/AllocateSubject";
 import { AllocateClass } from "./Pages/AllocateClass";
 import { StudentDetail } from "./Pages/StudentDetail";
 import { UpdateStudent } from "./Pages/UpdateStudent";
+import { UpdateTeacher } from "./Pages/UpdateTeacher";
+import { UpdateSubject } from "./Pages/UpdateSubject";
+import { UpdateClass } from "./Pages/UpdateCLass";
+
 class App extends Component {
 
     render() {
@@ -25,6 +29,9 @@ class App extends Component {
                         <Route path="/allocateClass" element={<AllocateClass />} />
                         <Route path="/studentDetail" element={<StudentDetail />} />
                         <Route path="/updateStudent" element={<UpdateStudent/>}/>
+                        <Route path="/updateTeacher" element={<UpdateTeacher/>}/>
+                        <Route path="/updateSubject" element={<UpdateSubject/>}/>
+                        <Route path="/updateClass" element={<UpdateClass/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>

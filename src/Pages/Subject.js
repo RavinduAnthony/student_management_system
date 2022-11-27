@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { SubjectUpdateButton } from "./SubjecUpdateButton";
 
 class Subject extends Component {
     constructor(props) {
@@ -31,6 +32,8 @@ class Subject extends Component {
             } catch (error) {
                 console.log(error)
             }
+            alert("Subject Saved!!")
+            window.location.reload()
         }
 
     }
@@ -49,6 +52,9 @@ class Subject extends Component {
                     </div>
 
                 </form>
+                <div>
+                    <SubjectUpdateButton/>
+                </div>
             </div>
         )
     }

@@ -92,34 +92,43 @@ export class UpdateStudent extends Component {
 
     }
     UpdateStudent = () => {
-        const requestOptions = {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                studentId: this.state.stdId,
-                firstName: this.state.fName,
-                lastName: this.state.lName,
-                contactPerson: this.state.cntPerson,
-                contactNo: this.state.cntNo,
-                email: this.state.email,
-                dateOfBirth: this.state.dob,
-                age: parseInt(this.state.age),
-                st_classRoomId: parseInt(this.state.classRoomId)
-            })
-        }
-        try {
-            fetch("https://localhost:44393/Student/UpdateStudent", requestOptions)
-                .then(response => response.json())
-                .then(data => {
-
+        if (this.state.fName.length === 0 || this.state.lName.length === 0 || this.state.cntNo.length === 0 || this.state.cntPerson.length === 0
+            || this.state.age.length === 0 || this.state.email.length === 0 || this.state.clsRoomName.length === 0) {
+            alert("Please provide all Details!!")
+        }else if(this.state.cntNo.length > 10 || this.state.cntNo.length < 10){
+            alert("Please provide valid Contact Number!!")
+        } 
+        else {
+            const requestOptions = {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    studentId: this.state.stdId,
+                    firstName: this.state.fName,
+                    lastName: this.state.lName,
+                    contactPerson: this.state.cntPerson,
+                    contactNo: this.state.cntNo,
+                    email: this.state.email,
+                    dateOfBirth: this.state.dob,
+                    age: parseInt(this.state.age),
+                    st_classRoomId: parseInt(this.state.classRoomId)
                 })
-        } catch (error) {
-            console.log(error)
+            }
+            try {
+                fetch("https://localhost:44393/Student/UpdateStudent", requestOptions)
+                    .then(response => response.json())
+                    .then(data => {
+
+                    })
+            } catch (error) {
+                console.log(error)
+            }
+            alert("Student Updated!")
+            window.location.reload();
         }
-        alert("Student Updated!")
-        window.location.reload();
+
     }
     DeleteStudent = () => {
         console.log("Delete student Id:", this.state.stdId)

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { ClassUpdateButton } from "./ClassUpdateButton";
 
 class ClassRoom extends Component {
     constructor(props) {
@@ -12,7 +13,10 @@ class ClassRoom extends Component {
         event.preventDefault();
         if (this.state.className.length === 0) {
             alert("Please provide Class Name!!")
-        } else {
+        }else if(this.state.className.length > 5){
+            alert("Please provide valid Details!!")
+        } 
+        else {
             const requestOptions = {
                 method: "POST",
                 headers: {
@@ -31,6 +35,8 @@ class ClassRoom extends Component {
             } catch (error) {
                 console.log(error)
             }
+            alert("Class Room saved!!")
+            window.location.reload()
         }
 
     }
@@ -40,7 +46,7 @@ class ClassRoom extends Component {
                 <form onSubmit={this.handleSubmit} >
                     <div className="mb-3">
                         {/* <label className="form-label">Classroom Name</label> */}
-                        <h5>Class Name</h5>
+                        <h5>Class Room</h5>
                         <input type="text" class="form-control" id="classroomName"
                             value={this.state.className} onChange={e => this.setState({ className: e.target.value })} />
                     </div>
@@ -49,6 +55,7 @@ class ClassRoom extends Component {
                     </div>
 
                 </form>
+                <ClassUpdateButton/>
             </div>
         )
     }

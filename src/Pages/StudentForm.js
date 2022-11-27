@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { UpdateButton } from "./UpdateButton";
+import { UpdateButton } from "./StudentUpdateButton";
 
 class StudentForm extends Component {
     constructor(props) {
@@ -37,23 +37,6 @@ class StudentForm extends Component {
                 let body = document.createElement("tbody")
 
                 for (let i = 0; i < data.length; i++) {
-                    // let updtBtn = document.createElement("button")
-                    // updtBtn.setAttribute("id", "btnUpdate")
-                    // updtBtn.setAttribute("value", data[i].studentId)
-                    // updtBtn.setAttribute("data-bs-toggle", "modal")
-                    // updtBtn.setAttribute("data-bs-target", "#stdModal")
-                    // updtBtn.classList.add("btnUpdate")
-                    // updtBtn.textContent = "Update"
-                    // updtBtn.addEventListener('click', function () {
-                    //     //console.log('Button click:', this.value)
-                    //     let stdId = parseInt(this.value)
-                    //     fetch("https://localhost:44393/Student/GetStudentById?studentId=" + stdId)
-                    //         .then(response => response.json())
-                    //         .then(data => {
-                    //             console.log(data)
-                    //         })
-
-                    // })
                     let trow = document.createElement("tr")
 
                     //FirstName
@@ -88,6 +71,7 @@ class StudentForm extends Component {
             })
     }
     handleChange = (event) => {
+        
         this.setState({
             firstName: event.target.value,
             lastName: event.target.value,
@@ -117,7 +101,12 @@ class StudentForm extends Component {
         if (this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.contactNumber.length === 0 ||
             this.state.contactPerson.length === 0 || this.state.email.length === 0 || this.state.dob === 0 || this.state.age.length === 0) {
             alert("Please provide all Details!!")
-        } else {
+        }else if(this.state.contactNumber.length > 10 || this.state.contactNumber.length < 10){
+            alert("Please enter valid Phone Number!!")
+        } else if(this.state.age < 0){
+            alert("Please enter Valid Details!!")
+        }
+        else {
             const requestOptions = {
                 method: "POST",
                 headers: {

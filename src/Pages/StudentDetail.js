@@ -19,8 +19,8 @@ export class StudentDetail extends Component {
                 for (let i = 0; i < data.length; i++) {
                     let stdOption = document.createElement("option")
                     stdOption.id = data[i].studentId
-                    stdOption.value = data[i].firstName + "" + data[i].lastName
-                    stdOption.text = data[i].firstName + "" + data[i].lastName
+                    stdOption.value = data[i].firstName + " " + data[i].lastName
+                    stdOption.text = data[i].firstName + " " + data[i].lastName
                     stdSelect.appendChild(stdOption)
                 }
             })

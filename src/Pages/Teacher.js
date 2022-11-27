@@ -1,6 +1,8 @@
 import { Component } from "react";
 import Subject from "./Subject";
 import ClassRoom from "./ClassRoom";
+import { TeacherUpdateButton } from "./TeacherUpdateButton";
+
 class Teacher extends Component {
     constructor(props) {
         super(props)
@@ -14,7 +16,10 @@ class Teacher extends Component {
         console.log("Last Name: ", this.state.lastName)
         if (this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.conNumber.length === 0 || this.state.email.length === 0) {
             alert("Please provide all Details!!")
-        } else {
+        } else if(this.state.conNumber.length > 10 || this.state.conNumber.length < 10){
+            alert("Please enter valid Phone Number!!")
+        }
+        else {
             const requestOptions = {
                 method: "POST",
                 headers: {
@@ -36,6 +41,8 @@ class Teacher extends Component {
             } catch (error) {
                 console.log(error)
             }
+            alert("Teacher Saved!!")
+            window.location.reload()
         }
 
     }
@@ -73,6 +80,8 @@ class Teacher extends Component {
                             <button type="submit" class="btn btn-primary">Save Teacher</button>
                         </div>
                     </form>
+                    <div><TeacherUpdateButton/></div>
+                    <br/>
                     <div className="formFields" >
                         <Subject />
                         <ClassRoom />

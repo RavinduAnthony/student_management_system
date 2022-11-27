@@ -80,3 +80,12 @@ code {
   padding-left: 30px;
   padding-top: 15px;
 }
+
+.btnGroup{
+  padding: 15px;
+  display: flex;
+}
+
+.btnGroup > div{
+  padding-right: 20px;
+}

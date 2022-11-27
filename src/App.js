@@ -8,6 +8,7 @@ import Teacher from "./Pages/Teacher";
 import { AllocateSubject } from "./Pages/AllocateSubject";
 import { AllocateClass } from "./Pages/AllocateClass";
 import { StudentDetail } from "./Pages/StudentDetail";
+import { UpdateStudent } from "./Pages/UpdateStudent";
 class App extends Component {
 
     render() {
@@ -23,6 +24,7 @@ class App extends Component {
                         <Route path="/allocateSubject" element={<AllocateSubject />} />
                         <Route path="/allocateClass" element={<AllocateClass />} />
                         <Route path="/studentDetail" element={<StudentDetail />} />
+                        <Route path="/updateStudent" element={<UpdateStudent/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>

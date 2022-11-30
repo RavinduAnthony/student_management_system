@@ -4,10 +4,10 @@ export class StudentDetail extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            clsName:'',
-            stdDetails:[]
+            clsName: '',
+            stdDetails: []
         }
-        
+
     }
 
     componentDidMount = () => {
@@ -19,8 +19,8 @@ export class StudentDetail extends Component {
                 for (let i = 0; i < data.length; i++) {
                     let stdOption = document.createElement("option")
                     stdOption.id = data[i].studentId
-                    stdOption.value = data[i].firstName + "" + data[i].lastName
-                    stdOption.text = data[i].firstName + "" + data[i].lastName
+                    stdOption.value = data[i].firstName + " " + data[i].lastName
+                    stdOption.text = data[i].firstName + " " + data[i].lastName
                     stdSelect.appendChild(stdOption)
                 }
             })
@@ -28,31 +28,31 @@ export class StudentDetail extends Component {
         studentSelect.addEventListener("change", function handleChange(event) {
             let stdId = studentSelect.options[studentSelect.selectedIndex].id
             fetch("https://localhost:44393/Student/GetStudentDetails1?studentId=" + stdId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        console.log("Std Details1: ", data)
+                        let clsName = document.getElementById("stclassName")
+                        clsName.value = data[0].stClassName
+
+                        let cntPerson = document.getElementById("cntPerson")
+                        cntPerson.value = data[0].stContactPerson
+
+                        let cntNo = document.getElementById("cntNumber")
+                        cntNo.value = data[0].stContactNo
+
+                        let stEmail = document.getElementById("email")
+                        stEmail.value = data[0].stEmail
+
+                        let stDob = document.getElementById("dob")
+                        stDob.value = data[0].stDob
+
+                        fetch("https://localhost:44393/Student/GetStudentDetails2?studentId=" + stdId)
                             .then(response => response.json())
                             .then(data => {
-                                console.log("Std Details1: ",data)
-                                let clsName = document.getElementById("stclassName")
-                                clsName.value = data[0].stClassName
-
-                                let cntPerson = document.getElementById("cntPerson")
-                                cntPerson.value = data[0].stContactPerson
-
-                                let cntNo = document.getElementById("cntNumber")
-                                cntNo.value = data[0].stContactNo
-
-                                let stEmail = document.getElementById("email")
-                                stEmail.value = data[0].stEmail
-
-                                let stDob = document.getElementById("dob")
-                                stDob.value = data[0].stDob
-
-                            })
-                            fetch("https://localhost:44393/Student/GetStudentDetails2?studentId=" + stdId)
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log("Std Details2: ",data)
+                                console.log("Std Details2: ", data)
                                 let tblbody = document.getElementById("detail2Table")
-                                for(let  i = 0; i < data.length; i++){
+                                for (let i = 0; i < data.length; i++) {
                                     let tblRow = document.createElement("tr")
 
                                     let col1 = document.createElement("td")
@@ -65,11 +65,18 @@ export class StudentDetail extends Component {
 
                                     tblbody.appendChild(tblRow)
                                 }
-                                
+
 
                             })
+                    }else{
+                        window.location.reload()
+                    }
+
+
+                })
+
         })
-        
+
     }
     render() {
 
@@ -81,34 +88,35 @@ export class StudentDetail extends Component {
                         <div className="formFields" >
                             <div className="mb-3">
                                 <label className="form-label">Student</label>
-                                <br/>
+                                <br />
                                 <select id="stdName" className="customSelect-details" >
                                     <option value="none" selected disabled hidden> --Select Student --</option>
                                 </select>
                             </div>
+                            <br />
                             <div className="mb-3">
                                 <label className="form-label">Class Room</label>
-                                <input type="text" className="form-control" id="stclassName"/>
+                                <input disabled type="text" className="form-control" id="stclassName" />
                             </div>
                         </div>
                         <div className="formFields" >
                             <div className="mb-3">
                                 <label className="form-label">Contact Person</label>
-                                <input type="text" className="form-control" id="cntPerson" />
+                                <input disabled type="text" className="form-control" id="cntPerson" />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Email Address</label>
-                                <input type="text" className="form-control" id="email" />
+                                <input disabled type="text" className="form-control" id="email" />
                             </div>
                         </div>
                         <div className="formFields" >
                             <div className="mb-3">
                                 <label className="form-label">Contact Number</label>
-                                <input type="text" className="form-control" id="cntNumber" />
+                                <input disabled type="text" className="form-control" id="cntNumber" />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Date of Birth</label>
-                                <input type="text" className="form-control" id="dob" />
+                                <input disabled type="text" className="form-control" id="dob" />
                             </div>
                         </div>
                     </form>

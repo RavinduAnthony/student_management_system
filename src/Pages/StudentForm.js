@@ -1,12 +1,16 @@
 import { Component } from "react";
+import { UpdateButton } from "./StudentUpdateButton";
+
 class StudentForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
             firstName: '', lastName: '', contactPerson: '', contactNumber: '',
-            email: '', age: '', dob: '', classRoom: ''
+            email: '', age: '', dob: '', classRoom: '', updateStudent: ''
         }
+        
     }
+    
     handleClassSelect = () => {
 
     }
@@ -33,23 +37,6 @@ class StudentForm extends Component {
                 let body = document.createElement("tbody")
 
                 for (let i = 0; i < data.length; i++) {
-                    let updtBtn = document.createElement("button")
-                    updtBtn.setAttribute("id", "btnUpdate")
-                    updtBtn.setAttribute("value", data[i].studentId)
-                    updtBtn.setAttribute("data-bs-toggle", "modal")
-                    updtBtn.setAttribute("data-bs-target", "#stdModal")
-                    updtBtn.classList.add("btnUpdate")
-                    updtBtn.textContent = "Update"
-                    updtBtn.addEventListener('click', function () {
-                        //console.log('Button click:', this.value)
-                        let stdId = parseInt(this.value)
-                        fetch("https://localhost:44393/Student/GetStudentById?studentId=" + stdId)
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data)
-                            })
-
-                    })
                     let trow = document.createElement("tr")
 
                     //FirstName
@@ -76,12 +63,6 @@ class StudentForm extends Component {
                     let col5 = document.createElement("td")
                     col5.innerHTML = data[i].age
                     trow.appendChild(col5)
-
-                    //class
-                    let col7 = document.createElement("td")
-                    col7.innerHTML = data[i].st_classRoomId
-                    trow.appendChild(col7)
-                    trow.appendChild(updtBtn)
                     body.appendChild(trow)
 
                 }
@@ -90,6 +71,7 @@ class StudentForm extends Component {
             })
     }
     handleChange = (event) => {
+        
         this.setState({
             firstName: event.target.value,
             lastName: event.target.value,
@@ -100,6 +82,7 @@ class StudentForm extends Component {
             dob: event.target.value,
 
         })
+        
     }
 
     handleSubmit = async (event) => {
@@ -117,9 +100,14 @@ class StudentForm extends Component {
         console.log('ClassRoom:', selectedClass)
 
         if (this.state.firstName.length === 0 || this.state.lastName.length === 0 || this.state.contactNumber.length === 0 ||
-            this.state.contactPerson.length === 0 || this.state.email.length === 0 || this.state.dob === 0 || this.state.age.length === 0) {
+            this.state.contactPerson.length === 0 || this.state.email.length === 0 || this.state.dob === 0 || this.state.age.length === 0 || selectedClass.length === 0) {
             alert("Please provide all Details!!")
-        } else {
+        }else if(this.state.contactNumber.length > 10 || this.state.contactNumber.length < 10){
+            alert("Please enter valid Phone Number!!")
+        } else if(this.state.age < 0){
+            alert("Please enter Valid Details!!")
+        }
+        else {
             const requestOptions = {
                 method: "POST",
                 headers: {
@@ -146,6 +134,8 @@ class StudentForm extends Component {
             } catch (error) {
                 console.log(error)
             }
+            alert("Student Saved!")
+            window.location.reload()
         }
 
 
@@ -209,8 +199,12 @@ class StudentForm extends Component {
                         <div className="mb-3" >
                             <button type="submit" className="btn btn-primary">Submit</button>
                         </div>
+
                     </div>
                 </form>
+                <div className="mb-3" >
+                    <UpdateButton/>
+                </div>
                 <div>
                     <table className="table table-hover" id="stdTable" >
                         <thead>
@@ -220,11 +214,11 @@ class StudentForm extends Component {
                                 <th>Contact Person</th>
                                 <th>Email</th>
                                 <th>Age</th>
-                                <th>Class</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
+                {/* {this.state.updateStudent === "update" && <UpdateStudent />} */}
             </div>
 
 
